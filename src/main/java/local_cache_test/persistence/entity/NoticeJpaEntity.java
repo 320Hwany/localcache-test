@@ -23,4 +23,10 @@ public class NoticeJpaEntity extends BaseTimeEntity {
     private NoticeJpaEntity(final String content) {
         this.content = content;
     }
+
+    public static NoticeJpaEntity toEntity(final String content) {
+        return NoticeJpaEntity.builder()
+                .content(content)
+                .build();
+    }
 }
