@@ -1,0 +1,12 @@
+config:
+  target: 'http://localhost:8080'
+  phases:
+    - duration: 10
+      arrivalRate: 30
+    - duration: 10
+      arrivalRate: 100
+
+scenarios:
+  - flow:
+      - get:
+          url: "/api/notices/cache"
