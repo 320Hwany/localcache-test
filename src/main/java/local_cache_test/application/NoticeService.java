@@ -1,9 +1,16 @@
 package local_cache_test.application;
 
+import local_cache_test.dto.NoticeResponse;
 import local_cache_test.persistence.entity.NoticeJpaEntity;
 import local_cache_test.persistence.repository.NoticeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 @Service
 public class NoticeService {
@@ -20,5 +27,14 @@ public class NoticeService {
             NoticeJpaEntity noticeJpaEntity = NoticeJpaEntity.toEntity(String.valueOf(i));
             noticeRepository.save(noticeJpaEntity);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<NoticeResponse> findAll() {
+        List<NoticeJpaEntity> noticeJpaEntities = noticeRepository.findAll();
+
+        return noticeJpaEntities.stream()
+                .map(NoticeResponse::of)
+                .collect(toList());
     }
 }
