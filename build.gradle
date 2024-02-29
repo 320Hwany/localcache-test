@@ -36,6 +36,10 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
+    // cache
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'net.sf.ehcache:ehcache:2.10.9.2'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
