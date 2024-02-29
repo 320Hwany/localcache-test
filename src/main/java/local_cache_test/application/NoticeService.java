@@ -3,6 +3,7 @@ package local_cache_test.application;
 import local_cache_test.dto.NoticeResponse;
 import local_cache_test.persistence.entity.NoticeJpaEntity;
 import local_cache_test.persistence.repository.NoticeRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,16 @@ public class NoticeService {
 
     @Transactional(readOnly = true)
     public List<NoticeResponse> findAll() {
+        List<NoticeJpaEntity> noticeJpaEntities = noticeRepository.findAll();
+
+        return noticeJpaEntities.stream()
+                .map(NoticeResponse::of)
+                .collect(toList());
+    }
+
+    @Cacheable(value = "NoticeFinder.findAll")
+    @Transactional(readOnly = true)
+    public List<NoticeResponse> findAllFromCache() {
         List<NoticeJpaEntity> noticeJpaEntities = noticeRepository.findAll();
 
         return noticeJpaEntities.stream()

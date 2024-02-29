@@ -30,4 +30,10 @@ public class NoticeController {
         List<NoticeResponse> noticeResponses = noticeService.findAll();
         return new NoticeResult(noticeResponses);
     }
+
+    @GetMapping("/cache")
+    public NoticeResult findAllFromCache() {
+        List<NoticeResponse> noticeResponses = noticeService.findAllFromCache();
+        return new NoticeResult(noticeResponses);
+    }
 }
